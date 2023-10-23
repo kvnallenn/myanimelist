@@ -1,23 +1,23 @@
 import AnimeList from "@/components/AnimeList/animelist"
+import Header from "@/components/AnimeList/Header"
 
-const Home = async () => {
+const Page = async () => {
   
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime`)
-  const anime = await response.json()
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=8`)
+  const topAnime = await response.json()
 
   return (
     <>
-    <div class="container-fluid mt-2">
-      <div class="row">
-        {anime.data.map(
-          data=>{
-            return <AnimeList title={data.title} images={data.images.webp.image_url} id={data.mal_id}/>
-          }
-        )}
+    <section>
+      <Header title="Paling Populer" linkTitle="Link Semua" linkHref='/populer/'/>
+        <div class="container-fluid mt-2">
+          <div class="row">
+          <AnimeList api={topAnime}/>
+          </div>
       </div>
-    </div>
+    </section>
     </>
   )
 }
 
-export default Home
+export default Page
